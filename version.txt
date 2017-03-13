@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="http://localhost/moodle/theme/standard/styles.php" />
+<link rel="stylesheet" type="text/css" href="http://localhost/moodle/theme/standardwhite/styles.php" />
+<script type="text/javascript"  src="http://localhost/moodle/lib/yui/yahoo/yahoo-min.js"></script><script type="text/javascript"  src="http://localhost/moodle/lib/yui/event/event-min.js"></script><script type="text/javascript"  src="http://localhost/moodle/lib/yui/connection/connection-min.js"></script><script type="text/javascript"  src="http://localhost/moodle/lib/swfobject/swfobject.js"></script><script type="text/javascript">
+//<![CDATA[
+  var flashversion = swfobject.getFlashPlayerVersion();
+  YAHOO.util.Connect.asyncRequest('GET','http://localhost/moodle/login/environment.php?sesskey=Xna0QMZdkv&flashversion='+flashversion.major+'.'+flashversion.minor+'.'+flashversion.release);
+//]]>
+</script>
+<!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="http://localhost/moodle/theme/standard/styles_ie7.css" />
+<![endif]-->
+<!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="http://localhost/moodle/theme/standard/styles_ie6.css" />
+<![endif]-->
+
+
+    <meta name="keywords" content="moodle, mamus: Administration: Notifications " />
+    <title>mamus: Administration: Notifications</title>
+    <link rel="shortcut icon" href="http://localhost/moodle/theme/standardwhite/favicon.ico" />
+    <!--<style type="text/css">/*<![CDATA[*/ body{behavior:url(http://localhost/moodle/lib/csshover.htc);} /*]]>*/</style>-->
+
+<script type="text/javascript" src="http://localhost/moodle/lib/javascript-static.js"></script>
+<script type="text/javascript" src="http://localhost/moodle/lib/javascript-mod.php"></script>
+<script type="text/javascript" src="http://localhost/moodle/lib/overlib/overlib.js"></script>
+<script type="text/javascript" src="http://localhost/moodle/lib/overlib/overlib_cssstyle.js"></script>
+<script type="text/javascript" src="http://localhost/moodle/lib/cookies.js"></script>
+<script type="text/javascript" src="http://localhost/moodle/lib/ufo.js"></script>
+<script type="text/javascript" src="http://localhost/moodle/lib/dropdown.js"></script>  
+
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+setTimeout('fix_column_widths()', 20);
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+function openpopup(url, name, options, fullscreen) {
+    var fullurl = "http://localhost/moodle" + url;
+    var windowobj = window.open(fullurl, name, options);
+    if (!windowobj) {
+        return true;
+    }
+    if (fullscreen) {
+        windowobj.moveTo(0, 0);
+        windowobj.resizeTo(screen.availWidth, screen.availHeight);
+    }
+    windowobj.focus();
+    return false;
+}
+
+function uncheckall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = false;
+    }
+}
+
+function checkall() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i = 0; i < inputs.length; i++) {
+        inputs[i].checked = true;
+    }
+}
+
+function inserttext(text) {
+  text = ' ' + text + ' ';
+  if ( opener.document.forms['theform'].message.createTextRange && opener.document.forms['theform'].message.caretPos) {
+    var caretPos = opener.document.forms['theform'].message.caretPos;
+    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+  } else {
+    opener.document.forms['theform'].message.value  += text;
+  }
+  opener.document.forms['theform'].message.focus();
+}
+
+function getElementsByClassName(oElm, strTagName, oClassNames){
+	var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	var arrReturnElements = new Array();
+	var arrRegExpClassNames = new Array();
+	if(typeof oClassNames == "object"){
+		for(var i=0; i<oClassNames.length; i++){
+			arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames[i].replace(/\-/g, "\\-") + "(\\s|$)"));
+		}
+	}
+	else{
+		arrRegExpClassNames.push(new RegExp("(^|\\s)" + oClassNames.replace(/\-/g, "\\-") + "(\\s|$)"));
+	}
+	var oElement;
+	var bMatchesAll;
+	for(var j=0; j<arrElements.length; j++){
+		oElement = arrElements[j];
+		bMatchesAll = true;
+		for(var k=0; k<arrRegExpClassNames.length; k++){
+			if(!arrRegExpClassNames[k].test(oElement.className)){
+				bMatchesAll = false;
+				break;
+			}
+		}
+		if(bMatchesAll){
+			arrReturnElements.push(oElement);
+		}
+	}
+	return (arrReturnElements)
+}
+//]]>
+</script>
+</head>
+
+<body  class="admin course-1 dir-ltr lang-en_utf8" id="admin-index">
+
+<div id="page">
+
+    <div id="header" class=" clearfix">        <h1 class="headermain">supermegamamus</h1>
+        <div class="headermenu"><div class="logininfo">You are logged in as <a  href="http://localhost/moodle/user/view.php?id=2&amp;course=1">Admin User</a>  (<a  href="http://localhost/moodle/login/logout.php?sesskey=Xna0QMZdkv">Logout</a>)</div></div>
+    </div>    <div class="navbar clearfix">
+        <div class="breadcrumb"><h2 class="accesshide " >You are here</h2> <ul>
+<li class="first"><a  onclick="this.target='_top'" href="http://localhost/moodle/">mamus</a></li><li> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> Administration</li><li> <span class="accesshide " >/&nbsp;</span><span class="arrow sep">&#x25BA;</span> Notifications</li></ul></div>
+        <div class="navbutton"><div class="singlebutton"><form action="http://localhost/moodle/admin/index.php" method="get"><div><input type="hidden" name="section" value="adminnotifications" /><input type="hidden" name="adminedit" value="on" /><input type="submit" value="Blocks editing on"   /></div></form></div></div>
+    </div>
+    <!-- END OF HEADER -->
+    <div id="content" class=" clearfix"><table id="layout-table" summary=""><tr><td style="width: 210px;" id="left-column"><div><a href="#sb-1" class="skip-block">Skip Site Administration</a><div  id="inst5" class="block_admin_tree sideblock"><div class="header"><div class="title"><input type="image" src="http://localhost/moodle/pix/t/switch_minus.gif" id="togglehide_inst5" onclick="elementToggleHide(this, true, function(el) {return findParentNode(el, 'DIV', 'sideblock'); }, 'Show Site Administration block', 'Hide Site Administration block'); return false;" alt="Hide Site Administration block" title="Hide Site Administration block" class="hide-show-image" /><h2>Site Administration</h2></div></div><div class="content">
+<script type="text/javascript">
+//<![CDATA[
+var vh_numdivs = 21;
+var parkplatz  = new Array();
+for (var i=1; i<=vh_numdivs; i++) {
+    parkplatz[i] = null;
+}
+
+function menu_toggle(i) {
+    i = parseInt(i);
+    if (parkplatz[i] === null) {
+        collapse(i);
+    } else {
+        expand(i);
+    }
+}
+
+function collapse(i) {
+    if (parkplatz[i] !== null) {
+        return;
+    }
+    var obj = document.getElementById("vh_div"+String(i));
+    if (obj === null) {
+        return;
+    }
+    var nothing = document.createElement("span");
+    nothing.setAttribute("id", "vh_div"+String(i));
+    parkplatz[i] = obj;
+    obj.parentNode.replaceChild(nothing, obj);
+    var icon = document.getElementById("vh_div"+String(i)+"indicator");
+    icon.innerHTML = "<img src=\"http://localhost/moodle/pix/i/closed.gif\" alt=\"Closed folder\" />";
+}
+
+function expand(i) {
+    if (parkplatz[i] === null) {
+        return;
+    }
+    var nothing = document.getElementById("vh_div"+String(i));
+    var obj = parkplatz[i];
+    parkplatz[i] = null;
+    nothing.parentNode.replaceChild(obj, nothing);
+    var icon = document.getElementById("vh_div"+String(i)+"indicator");
+    icon.innerHTML = "<img src=\"http://localhost/moodle/pix/i/open.gif\" alt=\"Opened folder\" />";
+}
+
+function expandall() {
+    for (i=1; i<=vh_numdivs; i++) {
+        expand(i);
+    }
+}
+
+function collapseall() {
+    for (var i=vh_numdivs; i>0; i--) {
+        collapse(i);
+    }
+}
+
+//]]>
+</script>
+<div class="admintree">
+
+<div class="depth0"><a class="link current" href="http://localhost/moodle/admin/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Notifications</a></div>
+<div class="depth0"><a href="#" onclick="menu_toggle('1');return false"><span id="vh_div1indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Users</a></div><div id="vh_div1">
+<div class="depth1"><a href="#" onclick="menu_toggle('2');return false"><span id="vh_div2indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Authentication</a></div><div id="vh_div2">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=manageauths"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Manage authentication</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/auth_config.php?auth=email"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Email-based self-registration</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/auth_config.php?auth=manual"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Manual accounts</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/auth_config.php?auth=nologin"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />No login</a></div>
+</div>
+<div class="depth1"><a href="#" onclick="menu_toggle('3');return false"><span id="vh_div3indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Accounts</a></div><div id="vh_div3">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/user.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Browse list of users</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/user/user_bulk.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Bulk user actions</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/user/editadvanced.php?id=-1"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Add a new user</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/uploaduser.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Upload users</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/uploadpicture.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Upload user pictures</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/user/profile/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />User profile fields</a></div>
+</div>
+<div class="depth1"><a href="#" onclick="menu_toggle('4');return false"><span id="vh_div4indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Permissions</a></div><div id="vh_div4">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/roles/manage.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Define roles</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/roles/assign.php?contextid=1"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Assign system roles</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=userpolicies"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />User policies</a></div>
+</div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('5');return false"><span id="vh_div5indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Courses</a></div><div id="vh_div5">
+<div class="depth1"><a class="link" href="http://localhost/moodle/course/index.php?categoryedit=on"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Add/edit courses</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/enrol.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Enrolments</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=coursesettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Course default settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=courserequest"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Course request</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=backups"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Backups</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('6');return false"><span id="vh_div6indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Grades</a></div><div id="vh_div6">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=gradessettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />General settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=gradecategorysettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Grade category settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=gradeitemsettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Grade item settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/grade/edit/scale/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Scales</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/grade/edit/letter/edit.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Letters</a></div>
+<div class="depth1"><a href="#" onclick="menu_toggle('7');return false"><span id="vh_div7indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Report settings</a></div><div id="vh_div7">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=gradereportgrader"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Grader report</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=gradereportoverview"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Overview report</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=gradereportuser"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />User report</a></div>
+</div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('8');return false"><span id="vh_div8indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Location</a></div><div id="vh_div8">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=locationsettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Location settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/timezoneimport.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Update timezones</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('9');return false"><span id="vh_div9indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Language</a></div><div id="vh_div9">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=langsettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Language settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/lang.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Language editing</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/langimport.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Language packs</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('10');return false"><span id="vh_div10indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Modules</a></div><div id="vh_div10">
+<div class="depth1"><a href="#" onclick="menu_toggle('11');return false"><span id="vh_div11indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Activities</a></div><div id="vh_div11">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/modules.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Manage activities</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modsettingassignment"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Assignment</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modsettingchat"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Chat</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modsettingdata"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Database</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modsettingforum"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Forum</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modsettingglossary"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Glossary</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/module.php?module=quiz"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Quiz</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modsettingresource"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Resource</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modsettingscorm"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />SCORM/AICC</a></div>
+</div>
+<div class="depth1"><a href="#" onclick="menu_toggle('12');return false"><span id="vh_div12indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Blocks</a></div><div id="vh_div12">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/blocks.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Manage blocks</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/stickyblocks.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Sticky blocks</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=blocksettingcourse_list"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Courses</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/block.php?block=24"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Global Search</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=blocksettingonline_users"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Online Users</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=blocksettingrss_client"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Remote RSS Feeds</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=blocksettingsection_links"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Section Links</a></div>
+</div>
+<div class="depth1"><a href="#" onclick="menu_toggle('13');return false"><span id="vh_div13indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Filters</a></div><div id="vh_div13">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=managefilters"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Manage filters</a></div>
+</div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('14');return false"><span id="vh_div14indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Security</a></div><div id="vh_div14">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=sitepolicies"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Site policies</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=httpsecurity"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />HTTP security</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=modulesecurity"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Module security</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=notifications"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Notifications</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=antivirus"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Anti-Virus</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('15');return false"><span id="vh_div15indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Appearance</a></div><div id="vh_div15">
+<div class="depth1"><a href="#" onclick="menu_toggle('16');return false"><span id="vh_div16indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Themes</a></div><div id="vh_div16">
+<div class="depth2"><a class="link" href="http://localhost/moodle/admin/settings.php?section=themesettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Theme settings</a></div>
+<div class="depth2"><a class="link" href="http://localhost/moodle/theme/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Theme Selector</a></div>
+</div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=calendar"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Calendar</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=htmleditor"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />HTML editor</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=htmlsettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />HTML settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=documentation"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Moodle Docs</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=mymoodle"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />My Moodle</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=coursemanager"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Course managers</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=ajax"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />AJAX and Javascript</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/tag/manage.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Manage tags</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('17');return false"><span id="vh_div17indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Front Page</a></div><div id="vh_div17">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=frontpagesettings"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Front Page settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/roles/assign.php?contextid=2"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Front Page roles</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/backup/backup.php?id=1"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Front Page backup</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/files/index.php?id=1&amp;wdir=/backupdata"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Front Page restore</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/question/edit.php?courseid=1"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Front Page questions</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/files/index.php?id=1"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Site files</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('18');return false"><span id="vh_div18indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Server</a></div><div id="vh_div18">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=systempaths"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />System Paths</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=mail"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Email</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=sessionhandling"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Session Handling</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=rss"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />RSS</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=debugging"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Debugging</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=stats"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Statistics</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=http"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />HTTP</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/maintenance.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Maintenance mode</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=cleanup"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Cleanup</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/environment.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Environment</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/phpinfo.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />PHP info</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=performance"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Performance</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('19');return false"><span id="vh_div19indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Networking</a></div><div id="vh_div19">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/mnet/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Settings</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/mnet/peers.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Peers</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/mnet/access_control.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />SSO Access Control</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/mnet/enr_hosts.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Enrolments</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/mnet/trustedhosts.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />XML-RPC hosts</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('20');return false"><span id="vh_div20indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Reports</a></div><div id="vh_div20">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/report/backups/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Backups</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/report/courseoverview/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Course overview</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/course/report/log/index.php?id=1"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Logs</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/course/report/log/indexlive.php?id=1"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Live logs</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/report/question/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Question</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/report/security/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Security overview</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/report/spamcleaner/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Spam cleaner</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/course/report/stats/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Statistics</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/report/unittest/index.php"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Unit tests</a></div>
+</div>
+<div class="depth0"><a href="#" onclick="menu_toggle('21');return false"><span id="vh_div21indicator"><img src="http://localhost/moodle/pix/i/open.gif" alt="Opened folder" /></span> Miscellaneous</a></div><div id="vh_div21">
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/settings.php?section=experimental"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />Experimental</a></div>
+<div class="depth1"><a class="link" href="http://localhost/moodle/admin/xmldb/"><img src="http://localhost/moodle/pix/i/item.gif" alt="" />XMLDB editor</a></div>
+</div>
+
+
+</div>
+<script type="text/javascript">
+//<![CDATA[
+collapseall();
+;
+//]]>
+</script><div class="footer"><div class="adminsearchform"><form action="http://localhost/moodle/admin/search.php" method="get"><div><label for="query" class="accesshide">Search in settings</label><input type="text" name="query" id="query" size="8" value="" /><input type="submit" value="Search" /></div></form></div></div></div></div><script type="text/javascript">
+//<![CDATA[
+elementCookieHide("inst5","Show Site Administration block","Hide Site Administration block");
+//]]>
+</script><span id="sb-1" class="skip-block-to"></span><a href="#sb-2" class="skip-block">Skip Admin bookmarks</a><div  id="inst6" class="block_admin_bookmarks sideblock"><div class="header"><div class="title"><input type="image" src="http://localhost/moodle/pix/t/switch_minus.gif" id="togglehide_inst6" onclick="elementToggleHide(this, true, function(el) {return findParentNode(el, 'DIV', 'sideblock'); }, 'Show Admin bookmarks block', 'Hide Admin bookmarks block'); return false;" alt="Hide Admin bookmarks block" title="Hide Admin bookmarks block" class="hide-show-image" /><h2>Admin bookmarks</h2></div></div><div class="content"><div class="footer"><a href="http://localhost/moodle/blocks/admin_bookmarks/create.php?section=adminnotifications&amp;sesskey=Xna0QMZdkv">bookmark this page</a></div></div></div><script type="text/javascript">
+//<![CDATA[
+elementCookieHide("inst6","Show Admin bookmarks block","Hide Admin bookmarks block");
+//]]>
+</script><span id="sb-2" class="skip-block-to"></span></div></td><td id="middle-column"><div class=" clearfix"><div class="generalbox adminwarning box">The <a href="cron.php">cron.php maintenance script</a> has not been run for at least 24 hours.&nbsp;<span class="helplink"><a title="Help with Installation (new window)" href="http://localhost/moodle/help.php?module=moodle&amp;file=install.html&amp;forcelang="  onclick="this.target='popup'; return openpopup('/help.php?module=moodle&amp;file=install.html&amp;forcelang=', 'popup', 'menubar=0,location=0,scrollbars,resizable,width=500,height=400', 0);"><img class="iconhelp" alt="Help with Installation (new window)" src="http://localhost/moodle/pix/help.gif" /></a></span></div><div class="generalbox adminwarning box">Please register your site to remove this button<div class="singlebutton"><form action="register.php" method="get"><div><input type="hidden" name="sesskey" value="Xna0QMZdkv" /><input type="submit" value="Moodle Registration"   /></div></form></div></div><div class="copyright box"><a href="http://moodle.org/">Moodle</a> <a href="http://docs.moodle.org/dev/Releases" title="2007101592.05">1.9.19+ (Build: 20130513)</a><br />Copyright &copy; 1999 onwards, Martin Dougiamas<br />and <a href="http://docs.moodle.org/dev/Credits">many other contributors</a>.<br /><a href="http://docs.moodle.org/dev/License">GNU Public License</a></div></div></td></tr></table></div><div id="footer"><hr /><p class="helplink"><a href="http://docs.moodle.org/19/en/admin/index"><img class="iconhelp" src="http://localhost/moodle/pix/docs.gif" alt="" />Moodle Docs for this page</a></p><div class="logininfo">You are logged in as <a  href="http://localhost/moodle/user/view.php?id=2&amp;course=1">Admin User</a>  (<a  href="http://localhost/moodle/login/logout.php?sesskey=Xna0QMZdkv">Logout</a>)</div><div class="homelink"><a  href="http://localhost/moodle/">Home</a></div></div>
+</div>
+</body>
+</html>

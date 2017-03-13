@@ -1,0 +1,9 @@
+IP: -127.0.0.1
+URL: /moodle/admin/index.html
+Version: 1.9.19
+
+No es vulnerable a SQL Injection :,v
+
+No es vulnerable a Cross Site Scripting:,v
+
+No es vulnerable a RFD :,v

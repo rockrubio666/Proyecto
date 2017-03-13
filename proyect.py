@@ -1,5 +1,3 @@
-#Introducir los parametros en este orden: -s -R -r
-#Si no manda error por el archivencio :,v
 import getopt
 import sys
 import re
@@ -16,8 +14,9 @@ var = ''
 met = ''
 h = ''
 vers = ''
-
-def getParams():
+####Definicion de la funcion principal que solicita los parametros######
+####Introducir los parametros en este orden: -s -R -r###################
+def getParams(ip,site):
 	try:
 		opts, args = getopt.getopt(sys.argv[1:], 's:R:r:v:m:h', ['ip=', 'site=','report=','var=','method=','help'])
 	except getopt.GetoptError:
@@ -30,13 +29,78 @@ def getParams():
 				print "Error, ip no validencia"
 		elif opt in ('-R', '--site'):
 			site = arg
-			
+####Parametros del reporte##############################################
 		elif opt in ('-r', '--report'):
 			writeFile(ip,site,rep=arg)
-			sqlInj()
-			xss()
-			rfd()
-			csrf()
+			code = (ip)
+			code1= (site)
+			code2=(getVersion())
+###Validacion SQL INJECTION para HTML###################################			
+			
+			if(sqlInj(ip,site) == True):
+				code3=('Recomendaciones para evitar SQL Injection:\n'
+						 '-Parametrizar las consultas,\n'
+						 '-Hacer uso de una cuenta con permisos restringidos para el acceso a la base de datos,\n'
+						 '-No mostrar la informacion de error al usuario,\n'
+						 '-Rechazar peticiones con caracteres sospechosos como: ; \' - \n')
+			else:
+				code3=('No es vulnerable a SQL Injection :,v\n')
+###Validacion XSS HTML##################################################			
+			if(xss(ip,site) == True):
+				code4=('Recomendaciones para evitar Cross Site Scripting:\n'
+						 '-Analizar y filtrar las entradas de datos,\n'
+						 '-Codificar los datos no confiables basados en HTML,\n'
+						 '-Uso de bibliotecas de sanitizacion del OWASP.\n')
+
+			else:
+				code4=('No es vulnerable a Cross Site Scripting:,v\n')
+###Validacion HTML CSRF##################################################
+			if(csrf(ip,site) == True):
+				code5=('Recomendaciones para evitar Cross Site Request Forgery:\n'
+						 '-Asegurarse que no existen vulnerabilidades XSS,\n'
+						 '-Re-autenticar al usuario,\n'
+						 '-Evitar hacer uso del metodo GET,\n'
+						 '-Hacer uso de autenticaciones externas junto con el metodo POST\n')
+			else:
+				code5=('No es vulnerable a CSRF :,v\n')
+###ValidacionHTML RFD###################################################			
+			if(rfd(ip,site) == True):	
+				code6=('Recomendaciones para evitar Remote File Disclosure:\n'
+						 '-Verificar las peticiones que se realizan al servidor,\n'
+					     '-Verificar los parametros mostrados en la URL,\n'
+					     '-Verificar el manejo de cookies,\n')
+			else:
+				code6=('No es vulnerable a RFD :,v\n')		
+###Construccion del HTML################################################					
+			f = open('reporte.html','w')
+			html = """\
+				<html>
+				  <head></head>
+				  <body>
+					<center> <p><h1>Reporte de vulnerabilidades</h1><br></center>
+					 <center> <p><h2>Mamu content:</h2><br></center>
+					   <h1><p>Direccion IP:<br></h1>
+					   <br><br>{code}<br>
+					   <h1>	<p>Recurso:<br></h1>
+					   <br><br>{code1}<br>
+					   <h1>	<p>Version Moodle:<br></h1>
+					   <br><br>{code2}<br>
+					   <h1>	<p>SQL Injection<br></h1>
+					   <br><br>{code3}<br>
+					   <h1><p>XSS<br></h1>
+					   <br><br>{code4}<br>	
+					   <h1><p>CSRF<br></h1>
+					   <br><br>{code5}<br>
+					   <h1>	<p>RFD<br></h1>
+					   <br><br>{code6}<br>	 
+					   <h1>	<p>Momazo<br></h1>rx
+					   <img src="http://i2.esmas.com/galerias/fotos/2014/08/04/_f1f84c55_7c11_0ee4_74f8_04a66e44645d.jpg">
+					</p>
+				  </body>
+				</html>
+				""".format(code=code,code1=code1,code2=code2,code3=code3,code4=code4,code5=code5,code6=code6)
+			f.write(html)
+			f.close()
 		
 		elif opt in ('-v', '--var'):
 			var = arg
@@ -45,9 +109,18 @@ def getParams():
 		elif opt in ('-m', '--method'):
 			met = arg			
 			if(met.upper() == 'GET'):
-				print getRequest()
+				sqlInj(ip,site)
+				xss(ip,site)
+				rfd(ip,site)
+				csrf(ip,site)
+				
+				
 			elif met.upper() == 'POST':
-				print postRequest()
+				sqlInj(ip,site)
+				xss(ip,site)
+				rfd(ip,site)
+				csrf(ip,site)
+				
 			else:
 				print "Metodo no valido >:v"
 				
@@ -58,7 +131,7 @@ def getParams():
 		else:
 			usage()
 			sys.exit(2)
-
+###Construccion del archivo txt#########################################
 def writeFile(ip,site,rep):
 
 	target = open(rep,'a')
@@ -73,7 +146,7 @@ def writeFile(ip,site,rep):
 		target.write("\n")
 		target.close()
 		
-		if(sqlInj() == True):
+		if(sqlInj(ip,site) == True):
 			target = open(rep,'a')
 			target.write('Recomendaciones para evitar SQL Injection:\n'
 						 '-Parametrizar las consultas,\n'
@@ -87,7 +160,7 @@ def writeFile(ip,site,rep):
 			target.write('\n')
 			target.close()
 			
-		if(xss() == True):
+		if(xss(ip,site) == True):
 			target = open(rep,'a')
 			target.write('Recomendaciones para evitar Cross Site Scripting:\n'
 						 '-Analizar y filtrar las entradas de datos,\n'
@@ -101,7 +174,7 @@ def writeFile(ip,site,rep):
 			target.write('\n')
 			target.close()
 		
-		if(csrf() == True):
+		if(csrf(ip,site) == True):
 			target = open(rep,'a')
 			target.write('Recomendaciones para evitar Cross Site Request Forgery:\n'
 						 '-Asegurarse que no existen vulnerabilidades XSS,\n'
@@ -112,10 +185,10 @@ def writeFile(ip,site,rep):
 			target.close()
 		else:
 			target = open(rep,'a')
-			target.write('No es vulnerable a CSRF :,v\n')
+			target.write	
 			target.close()
 			
-		if(rfd() == True):
+		if(rfd(ip,site) == True):
 			target = open(rep,'a')
 			target.write('Recomendaciones para evitar Remote File Disclosure:\n'
 						 '-Verificar las peticiones que se realizan al servidor,\n'
@@ -129,7 +202,7 @@ def writeFile(ip,site,rep):
 			target.close()
 	else:
 		print "No se escribio en el archivo, hubo un error en la ip >:v\n"
-
+###Funcion de ayuda#####################################################
 def ayuda():
 	print('-s, --ip Ip del sitio a analizar, ejemplo: 127.0.0.1\n'
 	'-r, --report Genera el reporte con el nombre del archivo, ejemplo: Reporte.txt\n'
@@ -138,7 +211,7 @@ def ayuda():
 	'-m, --method Metodo con el que se hara la peticion, ejemplo: GET o POST\n'
 	'-h, --help Muestra la ayuda para los comandos a ejecutar\n')
 
-	
+###Validacion de la IP##################################################	
 def validaIp(ip):
 	if len(ip.split()) == 1:
 		ipList = ip.split('.')
@@ -163,13 +236,13 @@ def validaIp(ip):
 		#Cuando no se introduce nada :v
 		return False
 
-
+###Funcion para obetener la version del moodle##########################
 
 def getVersion():
 	s = requests.session()
 	url = 'http://localhost/moodle/login/index.php'
 	url1 = 'http://localhost/moodle/admin/index.php'
-	payload = {'username':'admin','password':'Hola123,'}
+	payload = {'username':'admin','password':'Hola123.,'}
 	r = s.post(url, data=payload)
 
 	r1 = s.post(url1)
@@ -185,18 +258,13 @@ def getVersion():
 		if versionencia:
 			return versionencia.group()
 	algo.close()
-		
-def getRequest():
-	r = requests.get('http://google.com')
-	print r.status_code,r.headers
+
+###Funcion del SQL Injection############################################
+def sqlInj(ip,site):
+	#fullurl = ("localhost/moodle/index.php?")
 	
-
-def postRequest():
-	r = requests.post('http://google.com')
-	print r.headers
-
-def sqlInj():
-	fullurl = ("localhost/moodle/index.php?")
+	fullurl = ( ip +  site + '?')
+	#print fullurl
 	#fullurl = ("http://testphp.vulnweb.com/artists.php?artist")
 	#resp = urllib2.Request(fullurl + "?artist=1\'")
 	try:
@@ -216,12 +284,13 @@ def sqlInj():
 	except ValueError: 
 			#print ("No es vulnerable a SQL Injection")
 			return False
-
-def xss():
+###Funcion XSS##########################################################
+def xss(ip,site):
     try:
+		url = 'http://' + ip  + site
 		#url = "http://localhost/siteVuln/form.php"
 		#url="http://localhost/moodle/login/index.php"
-		url = "http://www.webscantest.com/crosstraining/aboutyou.php"
+		#url = "http://www.webscantest.com/crosstraining/aboutyou.php"
 		browser = mechanize.Browser()
 		attackNumber = 1
 		with open('XSS-vectors.txt') as f:
@@ -242,11 +311,13 @@ def xss():
     except:
 		#print "No vulnerable"
 		return False
+###Funcion RFD##########################################################
 
-def rfd():
+def rfd(ip,site):
 	try:
 		textfile = file('depth_1.txt','wt')
-		myurl = ("http://localhost/moodle/login/admin/")
+		myurl = 'http://' + ip  + site
+		#myurl = ("http://localhost/moodle/login/admin/")
 		for i in re.findall('''href=["'](.[^"']+)["']''', urllib.urlopen(myurl).read(), re.I):
 			if i.endswith('index.php'):
 				#print "Eres vulnerable >:V en: " + i
@@ -261,11 +332,15 @@ def rfd():
 	except:
 		#print "No vulnerable a RFD"
 		return False
+###Funcion CRSF#########################################################
 
-def csrf():
+def csrf(ip,site):
 	try:
 		s = requests.session()
-		url = 'http://localhost/moodle/login/index.php'
+		
+		url = 'http://' + ip  + site
+		
+		#url = 'http://localhost/moodle/login/index.php'
 		payload = {'username':'admin','password':'Hola123,'}
 		r = s.post(url, data=payload)
 	
@@ -284,8 +359,5 @@ def csrf():
 		return False
 		
 
-getParams()
-
-
-
+getParams(ip,site)
 
